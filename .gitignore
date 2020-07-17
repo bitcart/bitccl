@@ -11,3 +11,6 @@ templates/*.j2
 .pytest_cache
 .coverage
 htmlcov
+*.egg-info
+build
+dist

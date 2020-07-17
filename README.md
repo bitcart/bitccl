@@ -1,4 +1,8 @@
-# BitCCL
+<p align="center">
+  <a href="https://bitcartcc.com"><img src="logo.png" alt="BitCCL"></a>
+</p>
+
+---
 
 BitCCL is a [BitcartCC](https://bitcartcc.com) scripting language used for automating checkout flow and more.
 
@@ -33,7 +37,7 @@ Table of built-in functions:
 | `dispatch_event(event, *args, **kwargs)` | Dispatch `event`, optionally passing positional or named arguments to event handlers                                                            | None                                                 | :x:             |
 | `template(name, data={})`                | Render template `name`, optionally passing `data` to it                                                                                         | Template text on success, empty string("") otherwise | :heavy_check_mark:             |
 | `send_email(to, subject, text)`          | Sends email to email address `to`, with `subject` and `text`. Uses email server configuration from `config.json`                                | True on success, False otherwise                     | :heavy_check_mark:             |
-| `password(length=None)`                  | Generate cryptographically unique password of `length` if provided, otherwise uses safe enough length.                                          | Generated password                                   | :x:             |
+| `password(length=SECURE_PASSWORD_LENGTH)`                  | Generate cryptographically unique password of `length` if provided, otherwise uses safe enough length.                                          | Generated password                                   | :x:             |
 
 
 ## Built-in events 

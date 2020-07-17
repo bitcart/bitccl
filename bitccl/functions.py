@@ -3,12 +3,19 @@ import logging
 import secrets
 import smtplib
 import traceback
+import math
 from email.message import EmailMessage
 
 import jinja2
 
-from state import config, event_listeners
-from utils import allow_imports, prepare_event, silent_debug, time_limit
+from .state import config, event_listeners
+from .utils import allow_imports, prepare_event, silent_debug, time_limit
+import string
+
+PASSWORD_ALPHABET = (
+    string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
+)
+SECURE_PASSWORD_LENGTH = 43
 
 
 def add_event_listener(event, func):
@@ -65,5 +72,5 @@ def send_email(to, subject, text):
         return False
 
 
-def password(length=None):
-    return secrets.token_urlsafe(length)
+def password(length=SECURE_PASSWORD_LENGTH):
+    return "".join(secrets.choice(PASSWORD_ALPHABET) for _ in range(length))

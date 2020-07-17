@@ -6,7 +6,7 @@ class BaseEvent:
 
     @classmethod
     def init_imports(cls):
-        from functions import dispatch_event
+        from .functions import dispatch_event
 
         cls._dispatch_event = dispatch_event
 

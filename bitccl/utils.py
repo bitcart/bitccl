@@ -5,11 +5,11 @@ import os
 import signal
 import traceback
 from contextlib import contextmanager
-from exceptions import TimeoutException
 
-import events
-from datatypes import ExtendedDict
-from logger import logger
+from . import events
+from .datatypes import ExtendedDict
+from .exceptions import TimeoutException
+from .logger import logger
 
 
 def load_config():
