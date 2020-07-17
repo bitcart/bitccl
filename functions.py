@@ -1,0 +1,69 @@
+import inspect
+import logging
+import secrets
+import smtplib
+import traceback
+from email.message import EmailMessage
+
+import jinja2
+
+from state import config, event_listeners
+from utils import allow_imports, prepare_event, silent_debug, time_limit
+
+
+def add_event_listener(event, func):
+    event = prepare_event(event)
+    event_listeners[event].append(func)
+
+
+def on(event):
+    def wrapper(func):
+        add_event_listener(event, func)
+
+    return wrapper
+
+
+def dispatch_event(event, *args, **kwargs):
+    event = prepare_event(event)
+    for listener in event_listeners[event]:
+        try:
+            with time_limit(30):
+                listener(*args, **kwargs)
+        except BaseException:
+            silent_debug()
+            pass
+
+
+@allow_imports
+def template(name, data={}):
+    try:
+        with open(f"templates/{name}.j2") as f:
+            template = jinja2.Template(f.read(), trim_blocks=True)
+        return template.render(**data)
+    except BaseException:
+        silent_debug()
+        return ""
+
+
+@allow_imports
+def send_email(to, subject, text):
+    try:
+        server = smtplib.SMTP(config.email_host, config.email_port)
+        if config.email_tls:
+            server.starttls()
+        server.login(config.email_user, config.email_password)
+        message = EmailMessage()
+        message["From"] = config.email_user
+        message["To"] = to
+        message["Subject"] = subject
+        message.set_content(text)
+        server.send_message(message)
+        server.quit()
+        return True
+    except BaseException:
+        silent_debug()
+        return False
+
+
+def password(length=None):
+    return secrets.token_urlsafe(length)

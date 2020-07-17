@@ -1,0 +1,17 @@
+print("Test")
+
+def x():
+    return 3 / 0
+
+def f():
+    print("test1")
+    x()
+
+@on(ProductBought(1))
+def x1():
+    print("Event handler")
+
+add_event_listener(ProductBought(1),f)
+dispatch_event(ProductBought(1))
+print(template("test", {"user": "world"}))
+print(password(8))

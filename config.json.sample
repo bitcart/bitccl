@@ -1,0 +1,7 @@
+{
+    "email_host": "host",
+    "email_port": 587,
+    "email_tls": true,
+    "email_user": "test@test.com",
+    "email_password": "password"
+}
