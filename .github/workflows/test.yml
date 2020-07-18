@@ -36,10 +36,9 @@ jobs:
         pylint -E bitccl
     - name: Test with pytest
       run: |
-        pytest --cov=.
+        pytest --cov=bitccl --cov-config .coveragerc --cov-report=xml
     - uses: codecov/codecov-action@v1
       with:
-        file: .coverage
+        file: coverage.xml
         flags: unittests
         name: py-${{ matrix.python-version }}-${{ matrix.os }}
-        fail_ci_if_error: true
