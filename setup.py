@@ -21,7 +21,7 @@ setup(
         "Programming Language :: Python :: 3.8",
     ],
     description="The BitCCL scripting language compiler package",
-    entry_points={"console_scripts": ["bitccl=bitccl.cli:main",],},
+    entry_points={"console_scripts": ["bitccl=bitccl.cli:main"]},
     install_requires=requirements,
     license="MIT",
     long_description=readme,

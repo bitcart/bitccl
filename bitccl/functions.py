@@ -1,9 +1,5 @@
-import inspect
-import logging
 import secrets
 import smtplib
-import traceback
-import math
 from email.message import EmailMessage
 
 import jinja2
