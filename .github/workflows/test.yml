@@ -40,8 +40,8 @@ jobs:
       run: |
         pytest --cov=.
     - uses: codecov/codecov-action@v1
-        with:
-          file: .coverage
-          flags: unittests
-          name: py-${{ matrix.python-version }}-${{ matrix.os }}
-          fail_ci_if_error: true
+      with:
+        file: .coverage
+        flags: unittests
+        name: py-${{ matrix.python-version }}-${{ matrix.os }}
+        fail_ci_if_error: true
