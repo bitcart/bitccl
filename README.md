@@ -3,6 +3,12 @@
 </p>
 
 ---
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MrNaif2018/bitccl/test?style=flat-square)
+![Codecov](https://img.shields.io/codecov/c/github/MrNaif2018/bitccl?style=flat-square)
+![PyPI](https://img.shields.io/pypi/v/bitccl?style=flat-square)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/bitccl?style=flat-square)
+
+---
 
 BitCCL is a [BitcartCC](https://bitcartcc.com) scripting language used for automating checkout flow and more.
 
