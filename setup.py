@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.md") as readme_file:
     readme = readme_file.read()
@@ -31,6 +31,6 @@ setup(
     name="bitccl",
     packages=find_packages(),
     url="https://github.com/MrNaif2018/bitccl",
-    version="0.0.1",
+    version="0.0.2",
     zip_safe=False,
 )

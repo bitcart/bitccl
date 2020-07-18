@@ -3,8 +3,8 @@ print("Test")
 def x():
     return 3 / 0
 
-def f():
-    print("test1")
+def f(arg):
+    print("test", arg)
     x()
 
 @on(ProductBought(1))

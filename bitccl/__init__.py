@@ -4,7 +4,7 @@ import traceback
 
 from . import events as events_module
 from . import functions as functions_module
-from .utils import init_base_event, no_imports_importer
+from .utils import disable_imports, enable_imports, init_base_event
 
 functions = {
     name: func
@@ -20,10 +20,12 @@ init_base_event()
 
 
 def run(source, filename="<string>"):
-    __builtins__["__import__"] = no_imports_importer
+    disable_imports()
     try:
         code = compile(source, filename, "exec")
         exec(code, {**functions, **events})
     except BaseException:
         stack_frames = len(traceback.extract_tb(sys.exc_info()[2])) - 1
-        print(traceback.format_exc(-stack_frames), end="")
+        return traceback.format_exc(-stack_frames)
+    finally:
+        enable_imports()

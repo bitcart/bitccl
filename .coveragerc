@@ -4,4 +4,6 @@ omit =
     tests/*,
     venv/*,
     env/*,
+    bitccl/cli.py,
+    bitccl/logger.py,
     setup.py

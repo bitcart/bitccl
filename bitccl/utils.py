@@ -12,7 +12,7 @@ from .exceptions import TimeoutException
 from .logger import logger
 
 
-def load_config():
+def load_config():  # pragma: no cover
     config = {}
     data = ""
     if not os.path.exists("config.json"):
@@ -40,11 +40,20 @@ def no_imports_importer(*args, **kwargs):
     raise ImportError("Imports disabled")
 
 
+def enable_imports():
+    __builtins__["__import__"] = importlib.__import__
+
+
+def disable_imports():
+    __builtins__["__import__"] = no_imports_importer
+
+
 def allow_imports(func):
     def wrapper(*args, **kwargs):
-        __builtins__["__import__"] = importlib.__import__
+        imported = __builtins__["__import__"]
+        enable_imports()
         result = func(*args, **kwargs)
-        __builtins__["__import__"] = no_imports_importer
+        __builtins__["__import__"] = imported
         return result
 
     return wrapper
@@ -52,7 +61,9 @@ def allow_imports(func):
 
 def prepare_event(event):
     if isinstance(event, str):
-        event = getattr(events, event, events.BaseEvent)()
+        event = getattr(
+            events, event, type(event, (events.BaseEvent,), {"name": event})
+        )()  # dynamic event class if no event exists
     if inspect.isclass(event) and issubclass(event, events.BaseEvent):
         event = event()
     return event

@@ -1,8 +1,8 @@
 class BaseEvent:
 
     name: str
-    args_len: int
-    required_len: int
+    args_len: int = 0
+    required_len: int = 0
 
     @classmethod
     def init_imports(cls):
@@ -30,7 +30,7 @@ class BaseEvent:
         return f"{self.name} event parsed_args={self.parsed_args}"
 
     def dispatch(self, *args, **kwargs):
-        self._dispatch_event(self.name, *self.parsed_args, *args, **kwargs)
+        self._dispatch_event(*args, **kwargs)
 
 
 class ProductBought(BaseEvent):

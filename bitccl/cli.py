@@ -18,4 +18,6 @@ def main():
     except OSError:
         sys.exit("Error reading input file")
 
-    run(source, filename)
+    error_message = run(source, filename)
+    if error_message:
+        print(error_message, end="")

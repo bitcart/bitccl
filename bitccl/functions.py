@@ -1,12 +1,12 @@
 import secrets
 import smtplib
+import string
 from email.message import EmailMessage
 
 import jinja2
 
 from .state import config, event_listeners
 from .utils import allow_imports, prepare_event, silent_debug, time_limit
-import string
 
 PASSWORD_ALPHABET = (
     string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
@@ -31,7 +31,7 @@ def dispatch_event(event, *args, **kwargs):
     for listener in event_listeners[event]:
         try:
             with time_limit(30):
-                listener(*args, **kwargs)
+                listener(*event.parsed_args, *args, **kwargs)
         except BaseException:
             silent_debug()
             pass
@@ -49,7 +49,7 @@ def template(name, data={}):
 
 
 @allow_imports
-def send_email(to, subject, text):
+def send_email(to, subject, text):  # pragma: no cover
     try:
         server = smtplib.SMTP(config.email_host, config.email_port)
         if config.email_tls:
