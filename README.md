@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://bitcartcc.com"><img src="logo.png" alt="BitCCL"></a>
+  <a href="https://bitcartcc.com"><img src="https://raw.githubusercontent.com/MrNaif2018/bitccl/master/logo.png" alt="BitCCL"></a>
 </p>
 
 ---
