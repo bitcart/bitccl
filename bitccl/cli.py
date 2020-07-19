@@ -7,7 +7,7 @@ from bitccl import run
 
 def main():
     if len(sys.argv) != 2:
-        sys.exit(f"Usage: {sys.argv[0]} file.bitpp")
+        sys.exit(f"Usage: {sys.argv[0]} file.bccl")
 
     filename = sys.argv[1]
     if not os.path.exists(filename):

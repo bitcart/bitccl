@@ -1,6 +1,12 @@
 import pytest
 
+from bitccl.state import config as config_ctx
 from bitccl.utils import prepare_event
+
+
+@pytest.fixture(autouse=True)
+def config():
+    config_ctx.set({})
 
 
 def pytest_addoption(parser):

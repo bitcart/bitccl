@@ -21,7 +21,7 @@ BitCCL is basically Python, but:
 - Robust, with many built-in functions
 - Optimized for running in BitcartCC environment
 
-Language file extension is `.bitccl`.
+Language file extension is `.bccl`.
 
 ## Running
 

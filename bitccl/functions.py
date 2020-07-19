@@ -5,7 +5,8 @@ from email.message import EmailMessage
 
 import jinja2
 
-from .state import config, event_listeners
+from .state import config as config_ctx
+from .state import event_listeners
 from .utils import allow_imports, prepare_event, silent_debug, time_limit
 
 PASSWORD_ALPHABET = (
@@ -51,6 +52,7 @@ def template(name, data={}):
 @allow_imports
 def send_email(to, subject, text):  # pragma: no cover
     try:
+        config = config_ctx.get()
         server = smtplib.SMTP(config.email_host, config.email_port)
         if config.email_tls:
             server.starttls()

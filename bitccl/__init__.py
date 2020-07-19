@@ -4,7 +4,8 @@ import traceback
 
 from . import events as events_module
 from . import functions as functions_module
-from .utils import disable_imports, enable_imports, init_base_event
+from . import state
+from .utils import disable_imports, enable_imports, init_base_event, load_config
 
 functions = {
     name: func
@@ -19,7 +20,8 @@ events = {
 init_base_event()
 
 
-def run(source, filename="<string>"):
+def run(source, filename="<string>", config=None):
+    state.config.set(config if config is not None else load_config())
     disable_imports()
     try:
         code = compile(source, filename, "exec")
@@ -28,4 +30,5 @@ def run(source, filename="<string>"):
         stack_frames = len(traceback.extract_tb(sys.exc_info()[2])) - 1
         return traceback.format_exc(-stack_frames)
     finally:
+        state.event_listeners.clear()
         enable_imports()

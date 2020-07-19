@@ -8,8 +8,8 @@ def f(arg):
     x()
 
 @on(ProductBought(1))
-def x1():
-    print("Event handler")
+def x1(arg):
+    print("Event handler",arg)
 
 add_event_listener(ProductBought(1),f)
 dispatch_event(ProductBought(1))

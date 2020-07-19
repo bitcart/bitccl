@@ -31,6 +31,6 @@ setup(
     name="bitccl",
     packages=find_packages(),
     url="https://github.com/MrNaif2018/bitccl",
-    version="0.0.2",
+    version="0.0.3",
     zip_safe=False,
 )
