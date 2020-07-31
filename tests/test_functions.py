@@ -1,7 +1,5 @@
 from secrets import token_urlsafe
 
-import pytest
-
 from bitccl.functions import (
     add_event_listener,
     dispatch_event,
@@ -10,6 +8,7 @@ from bitccl.functions import (
     send_email,
 )
 from bitccl.functions import template as template_f
+from bitccl.state import config as config_ctx
 from bitccl.state import event_listeners
 
 
@@ -51,10 +50,19 @@ def test_dispatch_event(prepared_event):
     dispatch_event("notexist")  # always silent
 
 
-@pytest.mark.slow
-def test_send_email_unconfigured(mocker):
-    mock_smtp = mocker.patch("smtplib.SMTP")
+def test_send_email(mocker):
     to_address = "to@domain.com"
-    send_email(to=to_address, subject="subject", text="text")
+    assert not send_email(to=to_address, subject="subject", text="text")
+    mock_smtp = mocker.patch("smtplib.SMTP")
     instance = mock_smtp.return_value
-    assert not instance.sendmail.call_count
+    config_ctx.set(
+        {
+            "email_host": "smtp.test.com",
+            "email_port": 587,
+            "email_tls": True,
+            "email_user": "test@test.com",
+            "email_password": "test",
+        }
+    )
+    assert send_email(to=to_address, subject="subject", text="text")
+    assert instance.send_message.call_count == 1
