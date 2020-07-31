@@ -52,6 +52,9 @@ def test_dispatch_event(prepared_event):
 
 
 @pytest.mark.slow
-def test_send_email():
-    assert not send_email("test@test.com", "Test", "Test")  # not configured
-    # TODO: find a way to test email sending
+def test_send_email_unconfigured(mocker):
+    mock_smtp = mocker.patch('smtplib.SMTP')
+    to_address = 'to@domain.com'
+    send_email(to=to_address, subject='subject', text="text")
+    instance = mock_smtp.return_value
+    assert instance.sendmail.call_count is False

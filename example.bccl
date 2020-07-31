@@ -13,5 +13,5 @@ def x1(arg):
 
 add_event_listener(ProductBought(1),f)
 dispatch_event(ProductBought(1))
-print(template("test", {"user": "world"}))
+print(template("test", {"name": "world"}))
 print(password(8))
