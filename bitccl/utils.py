@@ -48,6 +48,15 @@ def disable_imports():
     __builtins__["__import__"] = no_imports_importer
 
 
+@contextmanager
+def disabled_imports():
+    disable_imports()
+    try:
+        yield
+    finally:
+        enable_imports()
+
+
 def allow_imports(func):
     def wrapper(*args, **kwargs):
         imported = __builtins__["__import__"]
@@ -57,6 +66,13 @@ def allow_imports(func):
         return result
 
     return wrapper
+
+
+def mark_allowed_imports(obj):
+    for (meth_name, meth) in inspect.getmembers(obj, inspect.ismethod):
+        if not meth_name.startswith("_"):
+            setattr(obj, meth_name, allow_imports(meth))
+    return obj
 
 
 def prepare_event(event):

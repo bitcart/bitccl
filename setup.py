@@ -1,11 +1,12 @@
 from setuptools import find_packages, setup
 
+from bitccl import VERSION
+
 with open("README.md") as readme_file:
     readme = readme_file.read()
 
 with open("requirements.txt") as requirements_file:
     requirements = requirements_file.read()
-
 setup(
     author="MrNaif2018",
     author_email="chuff184@gmail.com",
@@ -31,6 +32,6 @@ setup(
     name="bitccl",
     packages=find_packages(),
     url="https://github.com/MrNaif2018/bitccl",
-    version="0.0.3",
+    version=VERSION,
     zip_safe=False,
 )

@@ -1,1 +1,2 @@
 Jinja2
+httpx==0.13.* # TODO: remove pin when 1.0 is out

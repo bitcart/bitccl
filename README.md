@@ -45,6 +45,48 @@ Table of built-in functions:
 | `send_email(to, subject, text)`          | Sends email to email address `to`, with `subject` and `text`. Uses email server configuration from `config.json`                                | True on success, False otherwise                     | :heavy_check_mark:             |
 | `password(length=SECURE_PASSWORD_LENGTH)`                  | Generate cryptographically unique password of `length` if provided, otherwise uses safe enough length.                                          | Generated password                                   | :x:             |
 
+Also a http client is available.
+
+To send http request with it, use:
+
+`http.method(url)`
+
+To send HTTP method (get, post, delete, patch, etc.) to url.
+You can also optionally pass additional query parameters (params argument), request body data (data argument), 
+files (files argument), headers (headers argument), cookies (cookie argument) and more.
+
+Here is how the most complex request might look like:
+
+```python
+http.method(url, params={}, headers={}, cookies={}, auth=None, allow_redirects=True, cert="", verify=True, timeout=5.0)
+```
+
+All arguments except for url are optional.
+
+After sending a request, you can retrieve response data:
+
+If res is response got from calling `http.method(...)`, then:
+
+`res.text` will return text data from response (for example, html)
+
+`res.content` will return binary data from response (for example, file contents)
+
+`res.json()` will return json data from response (for example, when accessing different web APIs)
+
+Response status code can be got as `res.status_code`.
+
+For convenience, you are provided with http request codes to easily check if request is successful without remembering the numbers.
+
+For example, `http_codes.OK` is status code 200 (success).
+So, to check if request has succeeded, you can check like so:
+
+```python
+res = http.get("https://example.com")
+if res.status_code == http_codes.OK:
+    print("Success")
+```
+
+For additional information about built-in http client, you can read it's full [documentation](https://www.python-httpx.org/quickstart)
 
 ## Built-in events 
 

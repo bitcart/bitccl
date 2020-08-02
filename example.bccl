@@ -1,5 +1,6 @@
 print("Test")
-
+print(http_codes.OK)
+print(http.get("http://httpbin.org/user-agent").json())
 def x():
     return 3 / 0
 
