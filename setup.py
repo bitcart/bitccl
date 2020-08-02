@@ -1,6 +1,12 @@
+import importlib
+
 from setuptools import find_packages, setup
 
-from bitccl.version import VERSION
+# Load version.py without importing __init__.py and it's dependencies
+# https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
+spec = importlib.util.spec_from_file_location("version", "bitccl/version.py")
+version_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(version_module)
 
 with open("README.md") as readme_file:
     readme = readme_file.read()
@@ -32,6 +38,6 @@ setup(
     name="bitccl",
     packages=find_packages(),
     url="https://github.com/MrNaif2018/bitccl",
-    version=VERSION,
+    version=version_module.VERSION,
     zip_safe=False,
 )
