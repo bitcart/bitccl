@@ -96,3 +96,5 @@ In progress of adding
 
 You can contribute to BitCCL language by suggesting new built-in functions and events to be added, as well as any ideas for improving it.
 Open an [issue](https://github.com/MrNaif2018/bitccl/issues/new/choose) to suggest new features
+
+Also see our [contributing guidelines](CONTRIBUTING.md).
