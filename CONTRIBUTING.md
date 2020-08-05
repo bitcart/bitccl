@@ -17,7 +17,7 @@ git clone https://github.com/<<<your-github-account>>>/bitccl.git
 cd bitccl
 virtualenv env
 source env/bin/activate
-python3 setup.py develop
+pip3 install -e .
 pip3 install -r test-requirements.txt # for tests
 ```
 
