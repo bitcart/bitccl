@@ -88,9 +88,62 @@ if res.status_code == http_codes.OK:
 
 For additional information about built-in http client, you can read it's full [documentation](https://www.python-httpx.org/quickstart)
 
+Also, [BitcartCC SDK](https://sdk.bitcartcc.com) is available to use.
+
+To access coins without xpub to get transaction, fiat rate or anything else not requiring a wallet, you can access each coin by
+it's lowercase symbol, for example:
+
+```python
+print(btc.rate())
+print(ltc.rate())
+print(bch.rate())
+print(gzro.rate())
+print(bsty.rate())
+```
+
+**Note**: running coins' commands require it's daemon running if you are not using BitCCL from BitcartCC deployment.
+
+To perform operations requiring a wallet, use upper-case coin symbol, passing xpub/ypub/zpub/xprv/yprv/zprv/electrum seed in it:
+
+```python
+coin = BTC(xpub="my xpub")
+print(coin.balance())
+# or if using only once:
+print(BTC(xpub="my xpub").balance())
+```
+
 ## Built-in events 
 
 In progress of adding
+
+## Plugin system
+
+If using BitCCL programmatically, you can extend it's execution context with plugins.
+
+Pass a list of plugin-like objects to `run` function, like so:
+
+```python
+from bitccl import run
+
+run("print(x)", plugins=[TestPlugin()])
+```
+
+Each plugin can be anything: class, object, module object, it must have two methods:
+
+`startup()` method returning dictionary, which will be used to update execution context with new variables
+
+`shutdown(context)` method which should perform a clean-up of injected variables if needed
+
+Here's TestPlugin code from above's example:
+
+```python
+class TestPlugin:
+    def startup(self):
+        return {"x": 5}
+
+    def shutdown(self, context):
+        pass
+```
 
 ## Contributing
 

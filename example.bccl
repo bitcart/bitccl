@@ -1,6 +1,7 @@
 print("Test")
 print(http_codes.OK)
 print(http.get("http://httpbin.org/user-agent").json())
+print(btc.rate())
 def x():
     return 3 / 0
 

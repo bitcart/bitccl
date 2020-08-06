@@ -2,12 +2,11 @@ import inspect
 import sys
 import traceback
 
-import httpx
-
 from . import events as events_module
 from . import functions as functions_module
+from . import plugins as plugins_module
 from . import state
-from .utils import disabled_imports, init_base_event, load_config, mark_allowed_imports
+from .utils import disabled_imports, init_base_event, load_config
 from .version import VERSION
 
 functions = {
@@ -23,21 +22,21 @@ events = {
 init_base_event()
 
 
-def run(source, filename="<string>", config=None):
+def run(source, filename="<string>", config=None, plugins=[]):
     state.config.set(config if config is not None else load_config())
-    http_client = mark_allowed_imports(
-        httpx.Client(http2=True, headers={"user-agent": f"bitccl/{VERSION}"})
-    )
+    context = plugins_module.startup(additional_modules=plugins)
     try:
         with disabled_imports():
             code = compile(source, filename, "exec")
             exec(
-                code,
-                {"http": http_client, "http_codes": httpx.codes, **functions, **events},
+                code, {**context, **functions, **events},
             )
     except BaseException:
         stack_frames = len(traceback.extract_tb(sys.exc_info()[2])) - 1
         return traceback.format_exc(-stack_frames)
     finally:
-        http_client.close()
+        plugins_module.shutdown(context, additional_modules=plugins)
         state.event_listeners.clear()
+
+
+__all__ = ["run", "VERSION"]

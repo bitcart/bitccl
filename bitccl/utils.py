@@ -69,9 +69,13 @@ def allow_imports(func):
 
 
 def mark_allowed_imports(obj):
-    for (meth_name, meth) in inspect.getmembers(obj, inspect.ismethod):
-        if not meth_name.startswith("_"):
-            setattr(obj, meth_name, allow_imports(meth))
+    for method_name in dir(obj):
+        if not method_name.startswith("_") and callable(
+            inspect.getattr_static(obj, method_name)  # to avoid calling props
+        ):
+            setattr(
+                obj, method_name, allow_imports(getattr(obj, method_name)),
+            )
     return obj
 
 
