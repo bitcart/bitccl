@@ -33,7 +33,110 @@ class BaseEvent:
         self._dispatch_event(*args, **kwargs)
 
 
+# Events
+
+# Created events
+
+
+class UserCreated(BaseEvent):
+    """Fired when a new user is registered
+    Optional argument: email of registered user
+    """
+
+    name = "user_created"
+    args_len = 1
+    required_len = 0
+
+
+class NotificationCreated(BaseEvent):
+    """Fired when a new notification provider is created"""
+
+    name = "notification_created"
+    args_len = 0
+    required_len = args_len
+
+
+class TemplateCreated(BaseEvent):
+    """Fired when a new template is created"""
+
+    name = "template_created"
+    args_len = 0
+    required_len = args_len
+
+
+class StoreCreated(BaseEvent):
+    """Fired when a new store is created"""
+
+    name = "store_created"
+    args_len = 0
+    required_len = args_len
+
+
+class DiscountCreated(BaseEvent):
+    """Fired when a new discount is created"""
+
+    name = "discount_created"
+    args_len = 0
+    required_len = args_len
+
+
+class ProductCreated(BaseEvent):
+    """Fired when a new product is created"""
+
+    name = "product_created"
+    args_len = 0
+    required_len = args_len
+
+
+class InvoiceCreated(BaseEvent):
+    """Fired when a new invoice is created"""
+
+    name = "invoice_created"
+    args_len = 0
+    required_len = args_len
+
+
+# Sync and update events
+
+
+class WalletSynchronized(BaseEvent):
+    """Fired when a wallet has synchronized
+    Optional argument: wallet id
+    """
+
+    name = "wallet_synchronized"
+    args_len = 1
+    required_len = 0
+
+
+class InvoiceStatus(BaseEvent):
+    """Fired when invoice status changes
+    Optional argument: invoice id
+    """
+
+    name = "invoice_status"
+    args_len = 1
+    required_len = 0
+
+
+# Events fired on checkout
+
+
 class ProductBought(BaseEvent):
+    """Fired when a product has been paid
+    Required argument: product id
+    """
+
     name = "product_bought"
     args_len = 1
     required_len = args_len
+
+
+class InvoicePaid(BaseEvent):
+    """Fired when an invoice has been paid
+    Optional argument: invoice id
+    """
+
+    name = "invoice_paid"
+    args_len = 1
+    required_len = 0

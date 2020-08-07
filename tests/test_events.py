@@ -3,9 +3,19 @@ from contextlib import redirect_stdout
 
 import pytest
 
+from bitccl import events
 from bitccl.events import BaseEvent
 from bitccl.functions import add_event_listener, dispatch_event
 from bitccl.state import event_listeners
+
+# Test util
+
+
+def camel_to_snake_case(s):
+    return "".join(["_" + c.lower() if c.isupper() else c for c in s]).lstrip("_")
+
+
+# tests
 
 
 class DummyEvent(BaseEvent):
@@ -44,3 +54,9 @@ def test_base_event():
         event2.dispatch()
     assert f1.getvalue() == f2.getvalue() == "test 1\n"
     del event_listeners[event2]
+
+
+@pytest.mark.parametrize("event", events.values())
+def test_event_names(event):
+    if event != BaseEvent:
+        assert event.name == camel_to_snake_case(event.__name__)  # to avoid typos
