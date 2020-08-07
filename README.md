@@ -114,9 +114,9 @@ print(BTC(xpub="my xpub").balance())
 
 ## Built-in events 
 
-<script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
-<script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
-<zero-md src="events.md"></zero-md>
+Refer to [events.md](events.md).
+
+It is generated automatically from BitCCL code.
 
 ## Plugin system
 
