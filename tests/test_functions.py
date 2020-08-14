@@ -1,12 +1,6 @@
 from secrets import token_urlsafe
 
-from bitccl.functions import (
-    add_event_listener,
-    dispatch_event,
-    on,
-    password,
-    send_email,
-)
+from bitccl.functions import add_event_listener, dispatch_event, on, password, send_email
 from bitccl.functions import template as template_f
 from bitccl.state import config as config_ctx
 from bitccl.state import event_listeners

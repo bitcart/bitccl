@@ -44,7 +44,5 @@ def test_plugin_shutdown():
 
 
 def test_plugin_exceptions():
-    with pytest.raises(
-        ZeroDivisionError
-    ):  # plugins should handle their errors by themselves
+    with pytest.raises(ZeroDivisionError):  # plugins should handle their errors by themselves
         run("assert y", plugins=[DummyPluginWithException])

@@ -9,9 +9,7 @@ from .state import config as config_ctx
 from .state import event_listeners
 from .utils import allow_imports, prepare_event, silent_debug, time_limit
 
-PASSWORD_ALPHABET = (
-    string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
-)
+PASSWORD_ALPHABET = string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
 SECURE_PASSWORD_LENGTH = 43
 
 

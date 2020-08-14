@@ -15,6 +15,4 @@ def test_scope_exists(obj):
 @pytest.mark.parametrize("obj", coins.__all__)
 def test_anonymous_coins(obj):
     with pytest.warns(UserWarning):
-        assert (
-            run(f"assert {obj.lower()}.xpub == {obj}().xpub") is None
-        )  # ensure lowercase coin names have no xpub set
+        assert run(f"assert {obj.lower()}.xpub == {obj}().xpub") is None  # ensure lowercase coin names have no xpub set
