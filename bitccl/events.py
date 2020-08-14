@@ -15,9 +15,7 @@ class BaseEvent:
         if args_len < self.required_len:
             raise TypeError(f"Event {self.name} missing required arguments")
         if args_len > self.args_len:
-            raise TypeError(
-                f"Event {self.name}: too many arguments, expected max {self.args_len}"
-            )
+            raise TypeError(f"Event {self.name}: too many arguments, expected max {self.args_len}")
         self.parsed_args = list(args)
 
     def __hash__(self):

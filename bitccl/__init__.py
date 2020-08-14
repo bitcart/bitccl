@@ -9,10 +9,7 @@ from . import state
 from .utils import disabled_imports, init_base_event, load_config
 from .version import VERSION
 
-functions = {
-    name: func
-    for (name, func) in inspect.getmembers(functions_module, inspect.isfunction)
-}
+functions = {name: func for (name, func) in inspect.getmembers(functions_module, inspect.isfunction)}
 events = {
     name: event
     for (name, event) in inspect.getmembers(events_module, inspect.isclass)

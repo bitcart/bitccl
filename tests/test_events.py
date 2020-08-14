@@ -35,7 +35,7 @@ def test_base_event():
     with pytest.raises(TypeError):
         DummyEvent(1, 2)
     event2 = DummyEvent(1)
-    assert event2.name == "dummy"  # pylint: disable=no-member # pylint bug
+    assert event2.name == "dummy"
     assert event2.args_len == event2.required_len == 1
     assert event2.parsed_args == [1]
     assert repr(event2) == "dummy event parsed_args=[1]"

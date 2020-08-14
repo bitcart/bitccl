@@ -4,13 +4,7 @@ import pytest
 
 from bitccl.events import BaseEvent
 from bitccl.exceptions import TimeoutException
-from bitccl.utils import (
-    disabled_imports,
-    mark_allowed_imports,
-    no_imports_importer,
-    prepare_event,
-    time_limit,
-)
+from bitccl.utils import disabled_imports, mark_allowed_imports, no_imports_importer, prepare_event, time_limit
 
 
 class DummyEvent(BaseEvent):

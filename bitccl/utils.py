@@ -16,9 +16,7 @@ def load_config():  # pragma: no cover
     config = {}
     data = ""
     if not os.path.exists("config.json"):
-        logger.debug(
-            "No config file existing. No settings set. Some functions might not work properly"
-        )
+        logger.debug("No config file existing. No settings set. Some functions might not work properly")
     try:
         with open("config.json") as f:
             data = f.read()
@@ -70,9 +68,7 @@ def allow_imports(func):
 
 def mark_allowed_imports(obj):
     for method_name in dir(obj):
-        if not method_name.startswith("_") and callable(
-            inspect.getattr_static(obj, method_name)  # to avoid calling props
-        ):
+        if not method_name.startswith("_") and callable(inspect.getattr_static(obj, method_name)):  # to avoid calling props
             setattr(
                 obj, method_name, allow_imports(getattr(obj, method_name)),
             )

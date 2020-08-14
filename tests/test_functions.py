@@ -1,12 +1,6 @@
 from secrets import token_urlsafe
 
-from bitccl.functions import (
-    add_event_listener,
-    dispatch_event,
-    on,
-    password,
-    send_email,
-)
+from bitccl.functions import add_event_listener, dispatch_event, on, password, send_email
 from bitccl.functions import template as template_f
 from bitccl.state import config as config_ctx
 from bitccl.state import event_listeners
@@ -38,7 +32,7 @@ def test_on_decorator(prepared_event):
     assert len(event_listeners[prepared_event]) == 2
 
     @on("test")
-    def func():  # pylint:disable=unused-variable
+    def func():
         return 4 / 0
 
     assert len(event_listeners[prepared_event]) == 3
