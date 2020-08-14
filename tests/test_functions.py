@@ -32,7 +32,7 @@ def test_on_decorator(prepared_event):
     assert len(event_listeners[prepared_event]) == 2
 
     @on("test")
-    def func():  # pylint:disable=unused-variable
+    def func():
         return 4 / 0
 
     assert len(event_listeners[prepared_event]) == 3
