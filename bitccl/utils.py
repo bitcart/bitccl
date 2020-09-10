@@ -70,7 +70,9 @@ def mark_allowed_imports(obj):
     for method_name in dir(obj):
         if not method_name.startswith("_") and callable(inspect.getattr_static(obj, method_name)):  # to avoid calling props
             setattr(
-                obj, method_name, allow_imports(getattr(obj, method_name)),
+                obj,
+                method_name,
+                allow_imports(getattr(obj, method_name)),
             )
     return obj
 

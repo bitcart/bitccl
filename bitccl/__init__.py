@@ -26,7 +26,8 @@ def run(source, filename="<string>", config=None, plugins=[]):
         with disabled_imports():
             code = compile(source, filename, "exec")
             exec(
-                code, {**context, **functions, **events},
+                code,
+                {**context, **functions, **events},
             )
     except BaseException:
         stack_frames = len(traceback.extract_tb(sys.exc_info()[2])) - 1
