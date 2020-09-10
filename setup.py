@@ -37,7 +37,7 @@ setup(
     keywords=["bitcartcc", "bitccl", "programminglanguage", "compiler"],
     name="bitccl",
     packages=find_packages(),
-    url="https://github.com/MrNaif2018/bitccl",
+    url="https://github.com/bitcartcc/bitccl",
     version=version_module.VERSION,
     zip_safe=False,
 )

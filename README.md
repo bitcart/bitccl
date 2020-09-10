@@ -1,10 +1,10 @@
 <p align="center">
-  <a href="https://bitcartcc.com"><img src="https://raw.githubusercontent.com/MrNaif2018/bitccl/master/logo.png" alt="BitCCL"></a>
+  <a href="https://bitcartcc.com"><img src="https://raw.githubusercontent.com/bitcartcc/bitccl/master/logo.png" alt="BitCCL"></a>
 </p>
 
 ---
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MrNaif2018/bitccl/test?style=flat-square)
-![Codecov](https://img.shields.io/codecov/c/github/MrNaif2018/bitccl?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bitcartcc/bitccl/test?style=flat-square)
+![Codecov](https://img.shields.io/codecov/c/github/bitcartcc/bitccl?style=flat-square)
 ![PyPI](https://img.shields.io/pypi/v/bitccl?style=flat-square)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/bitccl?style=flat-square)
 
@@ -12,7 +12,7 @@
 
 BitCCL is a [BitcartCC](https://bitcartcc.com) scripting language used for automating checkout flow and more.
 
-It is currently in alpha stage, being separated from the [main BitcartCC repository](https://github.com/MrNaif2018/bitcart).
+It is currently in alpha stage, being separated from the [main BitcartCC repository](https://github.com/bitcartcc/bitcart).
 
 ## Architechture
 
@@ -150,6 +150,6 @@ class TestPlugin:
 ## Contributing
 
 You can contribute to BitCCL language by suggesting new built-in functions and events to be added, as well as any ideas for improving it.
-Open an [issue](https://github.com/MrNaif2018/bitccl/issues/new/choose) to suggest new features
+Open an [issue](https://github.com/bitcartcc/bitccl/issues/new/choose) to suggest new features
 
 Also see our [contributing guidelines](CONTRIBUTING.md).
