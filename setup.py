@@ -20,7 +20,7 @@ setup(
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
@@ -30,7 +30,7 @@ setup(
     description="The BitCCL scripting language compiler package",
     entry_points={"console_scripts": ["bitccl=bitccl.cli:main"]},
     install_requires=requirements,
-    license="MIT",
+    license="LGPLv3+",
     long_description=readme,
     long_description_content_type="text/markdown",
     include_package_data=True,

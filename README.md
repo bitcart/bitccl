@@ -153,3 +153,9 @@ You can contribute to BitCCL language by suggesting new built-in functions and e
 Open an [issue](https://github.com/bitcartcc/bitccl/issues/new/choose) to suggest new features
 
 Also see our [contributing guidelines](CONTRIBUTING.md).
+
+## Copyright and License
+
+Copyright (C) 2020 MrNaif2018
+
+Licensed under the [LGPLv3+](LICENSE)
