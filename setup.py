@@ -16,16 +16,15 @@ with open("requirements.txt") as requirements_file:
 setup(
     author="MrNaif2018",
     author_email="chuff184@gmail.com",
-    python_requires=">=3.6",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     description="The BitCCL scripting language compiler package",
     entry_points={"console_scripts": ["bitccl=bitccl.cli:main"]},
