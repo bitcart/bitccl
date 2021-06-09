@@ -4,3 +4,4 @@ pytest-cov
 flake8
 black
 isort>=5
+codecov
