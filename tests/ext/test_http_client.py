@@ -1,10 +1,5 @@
 """HTTPX is well-tested, so we test only the features that are provided by injected http client settings"""
-
-import pytest
-
 from bitccl import VERSION, run
-
-pytestmark = pytest.mark.slow
 
 
 def test_user_agent():
