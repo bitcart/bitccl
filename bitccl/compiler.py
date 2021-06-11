@@ -2,8 +2,11 @@ import inspect
 
 from RestrictedPython import RestrictingNodeTransformer
 from RestrictedPython import compile_restricted as _compile_source
-from RestrictedPython.Guards import full_write_guard
+from RestrictedPython.Eval import default_guarded_getitem, default_guarded_getiter
+from RestrictedPython.Guards import full_write_guard, guarded_iter_unpack_sequence, guarded_unpack_sequence
 from RestrictedPython.Guards import safe_builtins as safe_builtins_default
+from RestrictedPython.Guards import safer_getattr as _restricted_getattr
+from RestrictedPython.Utilities import utility_builtins
 
 from . import events as events_module
 from . import functions as functions_module
@@ -27,24 +30,58 @@ class Policy(RestrictingNodeTransformer):
             self.check_name(node, node.id)
         return node
 
+    def visit_AugAssign(self, node):
+        node = self.node_contents_visit(node)
+        return node
+
 
 def _metaclass(name, bases, dict):
     obj = type(name, bases, dict)
-    obj.__allow_access_to_unprotected_subobjects__ = 1
     obj._guarded_writes = 1
     return obj
 
 
 safe_builtins = safe_builtins_default.copy()
+safe_builtins.update(utility_builtins)
 safe_builtins["__import__"] = no_imports_importer
+
+
+def guarded_hasattr(obj, name):
+    try:
+        safer_getattr(obj, name)
+    except (AttributeError, TypeError):
+        return False
+    return True
+
+
+safe_builtins["hasattr"] = guarded_hasattr
+
+
+def getattr_no_default(obj, name, *args, **kwargs):
+    return getattr(obj, name)
+
+
+def safer_getattr(*args, **kwargs):
+    return _restricted_getattr(*args, **kwargs, getattr=getattr_no_default)
+
+
+def apply(func, *args, **kwargs):
+    return func(*args, **kwargs)
+
 
 safe_globals = {
     **functions,
     **events,
     "print": print,
+    "getattr": safer_getattr,
     "__builtins__": safe_builtins,
     "__metaclass__": _metaclass,
     "__name__": "__main__",
+    "_apply_": apply,
+    "_getitem_": default_guarded_getitem,
+    "_getiter_": default_guarded_getiter,
+    "_iter_unpack_sequence_": guarded_iter_unpack_sequence,
+    "_unpack_sequence_": guarded_unpack_sequence,
     "_write_": full_write_guard,
 }
 
