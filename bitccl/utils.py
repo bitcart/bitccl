@@ -1,4 +1,3 @@
-import importlib
 import inspect
 import json
 import os
@@ -36,45 +35,6 @@ def silent_debug():
 
 def no_imports_importer(*args, **kwargs):
     raise ImportError("Imports disabled")
-
-
-def enable_imports():
-    __builtins__["__import__"] = importlib.__import__
-
-
-def disable_imports():
-    __builtins__["__import__"] = no_imports_importer
-
-
-@contextmanager
-def disabled_imports():
-    disable_imports()
-    try:
-        yield
-    finally:
-        enable_imports()
-
-
-def allow_imports(func):
-    def wrapper(*args, **kwargs):
-        imported = __builtins__["__import__"]
-        enable_imports()
-        result = func(*args, **kwargs)
-        __builtins__["__import__"] = imported
-        return result
-
-    return wrapper
-
-
-def mark_allowed_imports(obj):
-    for method_name in dir(obj):
-        if not method_name.startswith("_") and callable(inspect.getattr_static(obj, method_name)):  # to avoid calling props
-            setattr(
-                obj,
-                method_name,
-                allow_imports(getattr(obj, method_name)),
-            )
-    return obj
 
 
 def prepare_event(event):

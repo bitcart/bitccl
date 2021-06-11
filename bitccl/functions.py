@@ -7,7 +7,7 @@ import jinja2
 
 from .state import config as config_ctx
 from .state import event_listeners
-from .utils import allow_imports, prepare_event, silent_debug, time_limit
+from .utils import prepare_event, silent_debug, time_limit
 
 PASSWORD_ALPHABET = string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
 SECURE_PASSWORD_LENGTH = 43
@@ -36,7 +36,6 @@ def dispatch_event(event, *args, **kwargs):
             pass
 
 
-@allow_imports
 def template(name, data={}):
     try:
         with open(f"templates/{name}.j2") as f:
@@ -47,7 +46,6 @@ def template(name, data={}):
         return ""
 
 
-@allow_imports
 def send_email(to, subject, text):  # pragma: no cover
     try:
         config = config_ctx.get()

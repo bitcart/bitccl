@@ -3,7 +3,7 @@ from contextlib import redirect_stdout
 
 import pytest
 
-from bitccl import events
+from bitccl.compiler import events
 from bitccl.events import BaseEvent
 from bitccl.functions import add_event_listener, dispatch_event
 from bitccl.state import event_listeners

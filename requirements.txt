@@ -1,3 +1,4 @@
+RestrictedPython
 Jinja2
 httpx[http2]==0.18.* # TODO: remove pin when 1.0 is out
 bitcart
