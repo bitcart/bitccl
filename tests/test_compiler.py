@@ -6,7 +6,8 @@ from contextlib import redirect_stdout
 import pytest
 
 from bitccl import run
-from bitccl.compiler import events, functions
+from bitccl.compiler import compile_restricted, events, functions
+from bitccl.exceptions import CompilationRestrictedError
 
 CLASS_TEST = """
 class Test:
@@ -79,6 +80,17 @@ def test_run():
     assert error_message
     assert "ZeroDivisionError" in error_message
     import os  # noqa # imports working after run function finalization
+
+
+def test_syntax_error():
+    with pytest.raises(SyntaxError):
+        compile_restricted("wrong =")
+
+
+def test_restricted_compilation():
+    with pytest.raises(CompilationRestrictedError) as e:
+        compile_restricted("exec('bad code')")
+    assert "Those language features were restricted for your security" in str(e.value)
 
 
 def test_disable_imports():

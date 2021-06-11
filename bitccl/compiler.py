@@ -1,17 +1,19 @@
+import ast
 import builtins
 import inspect
+import warnings
 
 from RestrictedPython import RestrictingNodeTransformer
-from RestrictedPython import compile_restricted as _compile_source
 from RestrictedPython.Eval import default_guarded_getitem, default_guarded_getiter
 from RestrictedPython.Guards import full_write_guard, guarded_iter_unpack_sequence, guarded_unpack_sequence
 from RestrictedPython.Guards import safe_builtins as safe_builtins_default
 from RestrictedPython.Guards import safer_getattr as _restricted_getattr
 from RestrictedPython.Utilities import utility_builtins
 
-from . import events as events_module
-from . import functions as functions_module
-from .utils import no_imports_importer
+from bitccl import events as events_module
+from bitccl import functions as functions_module
+from bitccl.exceptions import CompilationRestrictedError
+from bitccl.utils import no_imports_importer
 
 # TODO: currently it exports more than needed
 functions = {name: func for (name, func) in inspect.getmembers(functions_module, inspect.isfunction)}
@@ -122,8 +124,19 @@ safe_globals = {
 
 
 def compile_restricted(source, filename="<string", **kwargs):
-    code = _compile_source(source, filename, "exec", policy=Policy)
+    byte_code = None
+    collected_errors = []
+    collected_warnings = []
+    c_ast = ast.parse(source, filename, "exec")
+    policy_instance = Policy(collected_errors, collected_warnings, {})
+    policy_instance.visit(c_ast)
+    if not collected_errors:
+        byte_code = compile(c_ast, filename, mode="exec")
+    for warning in collected_warnings:  # pragma: no cover
+        warnings.warn(warning, SyntaxWarning)
+    if collected_errors:
+        raise CompilationRestrictedError(collected_errors)
     exec(
-        code,
+        byte_code,
         {**kwargs, **safe_globals},
     )

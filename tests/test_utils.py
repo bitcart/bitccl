@@ -3,7 +3,6 @@ import time
 import pytest
 
 from bitccl.events import BaseEvent
-from bitccl.exceptions import TimeoutException
 from bitccl.utils import prepare_event, time_limit
 
 
@@ -20,6 +19,6 @@ def test_prepare_event():
 def test_time_limit():
     with time_limit(5):
         pass
-    with pytest.raises(TimeoutException):
+    with pytest.raises(TimeoutError):
         with time_limit(1):
             time.sleep(3)

@@ -1,6 +1,6 @@
 import httpx
 
-from ..version import VERSION
+from bitccl.version import VERSION
 
 
 def startup():

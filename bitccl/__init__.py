@@ -1,11 +1,11 @@
 import sys
 import traceback
 
-from . import plugins as plugins_module
-from . import state
-from .compiler import compile_restricted
-from .utils import init_base_event, load_config
-from .version import VERSION
+from bitccl import plugins as plugins_module
+from bitccl import state
+from bitccl.compiler import compile_restricted
+from bitccl.utils import init_base_event, load_config
+from bitccl.version import VERSION
 
 init_base_event()
 

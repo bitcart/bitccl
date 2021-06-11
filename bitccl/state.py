@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-from .datatypes import ExtendedDict
-from .utils import load_config
+from bitccl.datatypes import ExtendedDict
+from bitccl.utils import load_config
 
 
 class ConfigSingleton:

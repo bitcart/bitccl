@@ -1,4 +1,4 @@
-from .ext import modules
+from bitccl.ext import modules
 
 
 def startup(additional_modules=[]):

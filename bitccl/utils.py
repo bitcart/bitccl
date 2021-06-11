@@ -6,10 +6,9 @@ import signal
 import traceback
 from contextlib import contextmanager
 
-from . import events
-from .datatypes import ExtendedDict
-from .exceptions import TimeoutException
-from .logger import logger
+from bitccl import events
+from bitccl.datatypes import ExtendedDict
+from bitccl.logger import logger
 
 
 def load_config():  # pragma: no cover
@@ -55,7 +54,7 @@ def init_base_event():
 @contextmanager
 def time_limit(seconds):
     def signal_handler(signum, frame):
-        raise TimeoutException("Timed out!")
+        raise TimeoutError("Timed out!")
 
     signal.signal(signal.SIGALRM, signal_handler)
     signal.alarm(seconds)
