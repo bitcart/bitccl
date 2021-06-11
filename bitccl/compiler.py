@@ -57,12 +57,18 @@ def guarded_hasattr(obj, name):
 safe_builtins["hasattr"] = guarded_hasattr
 
 
-def getattr_no_default(obj, name, *args, **kwargs):
-    return getattr(obj, name)
+SENTINEL = object()
 
 
-def safer_getattr(*args, **kwargs):
-    return _restricted_getattr(*args, **kwargs, getattr=getattr_no_default)
+def getattr_impl(obj, name, default):
+    if default is SENTINEL:
+        return getattr(obj, name)
+    else:
+        return getattr(obj, name, default)
+
+
+def safer_getattr(obj, name, default=SENTINEL):
+    return _restricted_getattr(obj, name, default, getattr=getattr_impl)
 
 
 def apply(func, *args, **kwargs):
