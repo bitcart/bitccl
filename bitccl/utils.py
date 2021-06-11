@@ -1,3 +1,4 @@
+import asyncio
 import inspect
 import json
 import os
@@ -62,3 +63,10 @@ def time_limit(seconds):
         yield
     finally:
         signal.alarm(0)
+
+
+def call_universal(func, *args, **kwargs):
+    result = func(*args, **kwargs)
+    if inspect.isawaitable(result):
+        result = asyncio.get_event_loop().run_until_complete(result)
+    return result

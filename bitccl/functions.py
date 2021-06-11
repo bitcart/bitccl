@@ -7,7 +7,7 @@ import jinja2
 
 from .state import config as config_ctx
 from .state import event_listeners
-from .utils import prepare_event, silent_debug, time_limit
+from .utils import call_universal, prepare_event, silent_debug, time_limit
 
 PASSWORD_ALPHABET = string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
 SECURE_PASSWORD_LENGTH = 43
@@ -30,7 +30,7 @@ def dispatch_event(event, *args, **kwargs):
     for listener in event_listeners[event]:
         try:
             with time_limit(30):
-                listener(*event.parsed_args, *args, **kwargs)
+                call_universal(listener, *event.parsed_args, *args, **kwargs)
         except BaseException:
             silent_debug()
             pass

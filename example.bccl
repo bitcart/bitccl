@@ -1,19 +1,21 @@
 print("Test")
 print(http_codes.OK)
 print(http.get("http://httpbin.org/user-agent").json())
-print(btc.rate())
+print("SYNC", btc.rate())
+
 def x():
     return 3 / 0
 
-def f(arg):
+async def f(arg):
     print("test", arg)
+    print("ASYNC", await btc.rate())
     x()
 
 @on(ProductBought(1))
 def x1(arg):
-    print("Event handler",arg)
+    print("Event handler", arg)
 
-add_event_listener(ProductBought(1),f)
+add_event_listener(ProductBought(1), f)
 dispatch_event(ProductBought(1))
 print(template("test", {"name": "world"}))
 print(password(8))

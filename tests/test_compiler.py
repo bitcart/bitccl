@@ -1,3 +1,5 @@
+import asyncio
+import contextlib
 import io
 from contextlib import redirect_stdout
 
@@ -35,6 +37,39 @@ def func(*args, **kwargs):
     assert kwargs == {"test": "value"}
 
 func(*[5], **{"test":"value"})
+"""
+
+ASYNC_SUPPORT_TEST = """
+run = False
+entered = False
+exited = False
+
+async def arange(n):
+    for i in range(n):
+        yield i
+
+@contextlib.asynccontextmanager
+async def manager():
+    global entered, exited
+    entered = True
+    yield
+    exited = True
+
+async def func():
+    await func2()
+    co = 0
+    async for i in arange(5):
+        assert i == co
+        co += 1
+    async with manager():
+        assert True
+
+async def func2():
+    global run
+    run = True
+
+asyncio.get_event_loop().run_until_complete(func())
+assert run
 """
 
 
@@ -87,3 +122,14 @@ def test_dynamic_attributes():
 
 def test_call_args_kwargs():
     assert run(CALL_ARGS_KWARGS_TEST) is None
+
+
+def test_async_support_works():
+    class AsyncioPlugin:
+        def startup(self):
+            return {"asyncio": asyncio, "contextlib": contextlib}
+
+        def shutdown(self, context):
+            pass
+
+    assert run(ASYNC_SUPPORT_TEST, plugins=[AsyncioPlugin()]) is None

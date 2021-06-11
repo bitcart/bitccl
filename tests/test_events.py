@@ -45,14 +45,18 @@ def test_base_event():
     def handler(test):
         print("test", test)
 
+    async def async_handler(test):
+        print("asynctest", test)
+
     add_event_listener(event2, handler)
+    add_event_listener(event2, async_handler)
     f1 = io.StringIO()
     f2 = io.StringIO()
     with redirect_stdout(f1):
         dispatch_event(event2)
     with redirect_stdout(f2):
         event2.dispatch()
-    assert f1.getvalue() == f2.getvalue() == "test 1\n"
+    assert f1.getvalue() == f2.getvalue() == "test 1\nasynctest 1\n"
     del event_listeners[event2]
 
 

@@ -12,6 +12,7 @@ from . import events as events_module
 from . import functions as functions_module
 from .utils import no_imports_importer
 
+# TODO: currently it exports more than needed
 functions = {name: func for (name, func) in inspect.getmembers(functions_module, inspect.isfunction)}
 events = {
     name: event
@@ -34,6 +35,18 @@ class Policy(RestrictingNodeTransformer):
         node = self.node_contents_visit(node)
         return node
 
+    def visit_AsyncFunctionDef(self, node):
+        return self.node_contents_visit(node)
+
+    def visit_Await(self, node):
+        return self.node_contents_visit(node)
+
+    def visit_AsyncFor(self, node):
+        return self.node_contents_visit(node)
+
+    def visit_AsyncWith(self, node):
+        return self.node_contents_visit(node)
+
 
 def _metaclass(name, bases, dict):
     obj = type(name, bases, dict)
@@ -43,6 +56,8 @@ def _metaclass(name, bases, dict):
 
 safe_builtins = safe_builtins_default.copy()
 safe_builtins.update(utility_builtins)
+allowed_builtins = {"next": next}
+safe_builtins.update(allowed_builtins)
 safe_builtins["__import__"] = no_imports_importer
 
 
