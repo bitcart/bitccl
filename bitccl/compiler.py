@@ -1,3 +1,4 @@
+import builtins
 import inspect
 
 from RestrictedPython import RestrictingNodeTransformer
@@ -54,10 +55,23 @@ def _metaclass(name, bases, dict):
     return obj
 
 
+_safe_names = [
+    "next",
+]
+_safe_exceptions = [
+    "StopAsyncIteration",
+]
+
 safe_builtins = safe_builtins_default.copy()
 safe_builtins.update(utility_builtins)
-allowed_builtins = {"next": next}
-safe_builtins.update(allowed_builtins)
+
+for name in _safe_names:
+    safe_builtins[name] = getattr(builtins, name)
+
+for name in _safe_exceptions:
+    safe_builtins[name] = getattr(builtins, name)
+
+
 safe_builtins["__import__"] = no_imports_importer
 
 
