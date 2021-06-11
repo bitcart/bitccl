@@ -3,6 +3,7 @@
 </p>
 
 ---
+
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bitcartcc/bitccl/test?style=flat-square)
 ![Codecov](https://img.shields.io/codecov/c/github/bitcartcc/bitccl?style=flat-square)
 ![PyPI](https://img.shields.io/pypi/v/bitccl?style=flat-square)
@@ -17,6 +18,7 @@ It is currently in alpha stage, being separated from the [main BitcartCC reposit
 ## Architechture
 
 BitCCL is basically Python, but:
+
 - Safe, with disabled import system
 - Robust, with many built-in functions
 - Optimized for running in BitcartCC environment
@@ -36,14 +38,14 @@ Current built-in functions list can be always seen in `functions.py` file.
 
 Table of built-in functions:
 
-| Signature                                | Description                                                                                                                                     | Return value                                         | Imports allowed |
-|------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|-----------------|
-| `add_event_listener(event, func)`        | Adds event listener `func` to be called when `event` is dispatched                                                                              | None                                                 | :x:             |
-| `@on(event)`                             | A decorator used for registering functions to be called when `event` is dispatched. Example: ``` @on(ProductBought(1)) def func():     pass ``` | Wrapper function                                     | :x:             |
-| `dispatch_event(event, *args, **kwargs)` | Dispatch `event`, optionally passing positional or named arguments to event handlers                                                            | None                                                 | :x:             |
-| `template(name, data={})`                | Render template `name`, optionally passing `data` to it                                                                                         | Template text on success, empty string("") otherwise | :heavy_check_mark:             |
-| `send_email(to, subject, text)`          | Sends email to email address `to`, with `subject` and `text`. Uses email server configuration from `config.json`                                | True on success, False otherwise                     | :heavy_check_mark:             |
-| `password(length=SECURE_PASSWORD_LENGTH)`                  | Generate cryptographically unique password of `length` if provided, otherwise uses safe enough length.                                          | Generated password                                   | :x:             |
+| Signature                                 | Description                                                                                                                           | Return value                                         |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `add_event_listener(event, func)`         | Adds event listener `func` to be called when `event` is dispatched                                                                    | None                                                 |
+| `@on(event)`                              | A decorator used for registering functions to be called when `event` is dispatched. Example: `@on(ProductBought(1)) def func(): pass` | Wrapper function                                     |
+| `dispatch_event(event, *args, **kwargs)`  | Dispatch `event`, optionally passing positional or named arguments to event handlers                                                  | None                                                 |
+| `template(name, data={})`                 | Render template `name`, optionally passing `data` to it                                                                               | Template text on success, empty string("") otherwise |
+| `send_email(to, subject, text)`           | Sends email to email address `to`, with `subject` and `text`. Uses email server configuration from `config.json`                      | True on success, False otherwise                     |
+| `password(length=SECURE_PASSWORD_LENGTH)` | Generate cryptographically unique password of `length` if provided, otherwise uses safe enough length.                                | Generated password                                   |
 
 Also a http client is available.
 
@@ -52,7 +54,7 @@ To send http request with it, use:
 `http.method(url)`
 
 To send HTTP method (get, post, delete, patch, etc.) to url.
-You can also optionally pass additional query parameters (params argument), request body data (data argument), 
+You can also optionally pass additional query parameters (params argument), request body data (data argument),
 files (files argument), headers (headers argument), cookies (cookie argument) and more.
 
 Here is how the most complex request might look like:
@@ -112,7 +114,7 @@ print(coin.balance())
 print(BTC(xpub="my xpub").balance())
 ```
 
-## Built-in events 
+## Built-in events
 
 Refer to [events.md](events.md).
 
@@ -146,6 +148,50 @@ class TestPlugin:
     def shutdown(self, context):
         pass
 ```
+
+## How does BitCCL secure the users
+
+BitCCL uses [RestrictedPython](https://pypi.org/project/RestrictedPython/) project with some modifications.
+
+Before executing arbitrary code, which could possibly be copied by a merchant from unknown source, we parse it into AST tree.
+
+Then, by AST transformation, we delete dangerous operations or replace them to non-existing names (for example getattr to `_getattr_`)
+
+The following code:
+
+```python
+x.foo = x.foo + x[0]
+```
+
+is transformed to:
+
+```python
+_write(x).foo = _getattr(x, 'foo') + _getitem(x, 0)
+```
+
+That way, our built-in functions have access to what they need, but user code is restricted.
+
+If some dangerous operations are found at AST transforming stage, `CompilationRestrictedError` is raised with a list of errors.
+
+That way, in many cases code won't even be executed if it is dangerous.
+
+Afterwards, we execute the bytecode with a pretty limited `globals` object, with safer replacements for built-in functions.
+
+3 main points making it secure:
+
+- Imports are disabled (`import os; os.removedirs("/")` or similar won't work)
+- The main one: accessing magic attributes is disallowed, like `__class__`, `__base__`, `__subclasses__` and similar
+  It is not useful for user code, but opens many possible security holes
+  The worst example is this:
+
+  ```python
+  print((1).__class__.__base__.__subclasses__())
+  ```
+
+  It could be used to access any class in your program, but accessing `__class__` and further is disallowed.
+  It also disallowed such cases as `template.__globals__['os'].listdir('/')` and many others
+
+- Also, by providing a limited amount of globals, unsafe ones are excluded, so you are provided only with useful, but safe tools
 
 ## Contributing
 
