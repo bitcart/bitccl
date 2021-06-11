@@ -1,5 +1,6 @@
 import ast
 import builtins
+import functools
 import inspect
 import warnings
 
@@ -59,6 +60,18 @@ def _metaclass(name, bases, dict):
 
 _safe_names = [
     "next",
+    "iter",
+    "filter",
+    "max",
+    "min",
+    "map",
+    "zip",
+    "list",
+    "dict",
+    "enumerate",
+    "sum",
+    "any",
+    "all",
 ]
 _safe_exceptions = [
     "StopAsyncIteration",
@@ -73,7 +86,7 @@ for name in _safe_names:
 for name in _safe_exceptions:
     safe_builtins[name] = getattr(builtins, name)
 
-
+safe_builtins["reduce"] = functools.reduce
 safe_builtins["__import__"] = no_imports_importer
 
 
