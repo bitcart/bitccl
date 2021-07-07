@@ -2,6 +2,14 @@
 
 ## Latest changes
 
+## 0.1.0
+
+Better, safer compiler by using RestrictedPython
+
+Now it should not be possible to get access to arbitrary modules via existing python objects available.
+
+For more details see [How does BitCCL secure the users](https://github.com/bitcartcc/bitccl/blob/master/README.md#how-does-bitccl-secure-the-users)
+
 ## 0.0.6
 
 Drop python 3.6 support (we support 3 latest python releases)
