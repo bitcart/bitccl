@@ -69,3 +69,9 @@ def call_universal(func, *args, **kwargs):
     if inspect.isawaitable(result):
         result = asyncio.get_event_loop().run_until_complete(result)
     return result
+
+
+def function(f):
+    """Use function decorator to mark functions to be exported to BitCCL execution context"""
+    f.bitccl = True
+    return f

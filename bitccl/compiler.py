@@ -16,8 +16,9 @@ from bitccl import functions as functions_module
 from bitccl.exceptions import CompilationRestrictedError
 from bitccl.utils import no_imports_importer
 
-# TODO: currently it exports more than needed
-functions = {name: func for (name, func) in inspect.getmembers(functions_module, inspect.isfunction)}
+functions = {
+    name: func for (name, func) in inspect.getmembers(functions_module, inspect.isfunction) if hasattr(func, "bitccl")
+}
 events = {
     name: event
     for (name, event) in inspect.getmembers(events_module, inspect.isclass)

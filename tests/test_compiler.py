@@ -99,6 +99,7 @@ def test_disable_imports():
 
 @pytest.mark.parametrize("func", functions.keys())
 def test_disallowed_imports(func):
+    assert hasattr(functions[func], "bitccl")
     assert "Imports disabled" in run(f"from functions import {func}")
 
 
