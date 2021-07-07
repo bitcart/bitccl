@@ -1,4 +1,4 @@
-import importlib
+import asyncio
 import inspect
 import json
 import os
@@ -6,10 +6,9 @@ import signal
 import traceback
 from contextlib import contextmanager
 
-from . import events
-from .datatypes import ExtendedDict
-from .exceptions import TimeoutException
-from .logger import logger
+from bitccl import events
+from bitccl.datatypes import ExtendedDict
+from bitccl.logger import logger
 
 
 def load_config():  # pragma: no cover
@@ -38,45 +37,6 @@ def no_imports_importer(*args, **kwargs):
     raise ImportError("Imports disabled")
 
 
-def enable_imports():
-    __builtins__["__import__"] = importlib.__import__
-
-
-def disable_imports():
-    __builtins__["__import__"] = no_imports_importer
-
-
-@contextmanager
-def disabled_imports():
-    disable_imports()
-    try:
-        yield
-    finally:
-        enable_imports()
-
-
-def allow_imports(func):
-    def wrapper(*args, **kwargs):
-        imported = __builtins__["__import__"]
-        enable_imports()
-        result = func(*args, **kwargs)
-        __builtins__["__import__"] = imported
-        return result
-
-    return wrapper
-
-
-def mark_allowed_imports(obj):
-    for method_name in dir(obj):
-        if not method_name.startswith("_") and callable(inspect.getattr_static(obj, method_name)):  # to avoid calling props
-            setattr(
-                obj,
-                method_name,
-                allow_imports(getattr(obj, method_name)),
-            )
-    return obj
-
-
 def prepare_event(event):
     if isinstance(event, str):
         event = getattr(
@@ -94,7 +54,7 @@ def init_base_event():
 @contextmanager
 def time_limit(seconds):
     def signal_handler(signum, frame):
-        raise TimeoutException("Timed out!")
+        raise TimeoutError("Timed out!")
 
     signal.signal(signal.SIGALRM, signal_handler)
     signal.alarm(seconds)
@@ -102,3 +62,10 @@ def time_limit(seconds):
         yield
     finally:
         signal.alarm(0)
+
+
+def call_universal(func, *args, **kwargs):
+    result = func(*args, **kwargs)
+    if inspect.isawaitable(result):
+        result = asyncio.get_event_loop().run_until_complete(result)
+    return result
