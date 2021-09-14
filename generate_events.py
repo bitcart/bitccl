@@ -1,11 +1,12 @@
-from bitccl import events
+from bitccl.compiler import events
 from bitccl.events import BaseEvent
 
-out = "events.md"
+output = ""
+SPACES = " " * 4
 
-f = open(out, "w")
 for event in events.values():
     if event != BaseEvent:
-        print(f"`{event.__name__}`\n\n{event.__doc__}\n".replace("    ", "\n"), file=f)
+        output += f"`{event.__name__}`\n\n{event.__doc__.strip()}\n\n".replace(SPACES, "\n")
 
-f.close()
+with open("events.md", "w") as f:
+    print(output.strip(), file=f)
