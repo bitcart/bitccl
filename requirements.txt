@@ -1,4 +1,4 @@
-RestrictedPython
-Jinja2
-httpx[http2]==0.19.* # TODO: remove pin when 1.0 is out
 bitcart
+httpx[http2]==0.19.* # TODO: remove pin when 1.0 is out
+Jinja2
+RestrictedPython

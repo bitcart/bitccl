@@ -25,6 +25,20 @@ From now on, development environment is ready.
 
 Make sure to follow [our coding guidelines](https://github.com/bitcartcc/bitcart/blob/master/CODING_STANDARDS.md) when developing.
 
+This repository uses pre-commit hooks for better development experience. Install them with:
+
+```
+pre-commit install
+```
+
+It will run automatically on commits.
+
+If you ever need to run the full pre-commit checks on all files, run:
+
+```
+pre-commit run --all-files
+```
+
 To run all checks before commiting, use `make` command.
 
 # Thank You!
