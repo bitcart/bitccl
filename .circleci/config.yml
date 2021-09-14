@@ -25,7 +25,7 @@ commands:
             virtualenv ~/venv
             echo ". ~/venv/bin/activate" >> $BASH_ENV
             source $BASH_ENV
-            pip install .   
+            pip install .
             pip install -r test-requirements.txt
 
       - save_cache:
@@ -92,7 +92,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -U wheel twine
-            python setup.py sdist 
+            python setup.py sdist
             python setup.py bdist_wheel
             twine upload dist/*
 

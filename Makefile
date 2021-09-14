@@ -6,7 +6,7 @@ lint:
 checkformat:
 	black --check .
 	isort --check .
-	
+
 format:
 	black .
 	isort .
