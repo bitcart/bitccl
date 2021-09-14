@@ -3,8 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "[BUG]"
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 **Describe the bug**
@@ -21,13 +20,14 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **System information:**
- - OS:
- - Version:
- -  Python version (if applicable):
- - - [ ] Using as part of BitcartCC deployment
+
+- OS:
+- Version:
+- Python version (if applicable):
+- - [ ] Using as part of BitcartCC deployment
 - If using as part of BitcartCC deployment, please also add:
-    - BitcartCC version:
-    - BitcartCC deployment method used:
+  - BitcartCC version:
+  - BitcartCC deployment method used:
 
 **Additional context**
 Add any other context about the problem here.

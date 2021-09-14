@@ -3,8 +3,7 @@ name: New event request
 about: Suggest adding new event
 title: "[EVENT]"
 labels: new event
-assignees: ''
-
+assignees: ""
 ---
 
 **What is the purpose of this event?**

@@ -3,8 +3,7 @@ name: New function request
 about: Suggest adding new function
 title: "[FUNCTION]"
 labels: new function
-assignees: ''
-
+assignees: ""
 ---
 
 **What is the purpose of this function?**
