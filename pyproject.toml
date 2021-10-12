@@ -1,2 +1,28 @@
 [tool.black]
-line-length=127
+line-length = 127
+
+[tool.isort]
+profile = "black"
+line_length = 127
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cov=bitccl",
+    "--cov-report",
+    "term-missing"
+]
+filterwarnings = [
+    "error::DeprecationWarning",
+    "error::PendingDeprecationWarning"
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "tests/*",
+    "venv/*",
+    "env/*",
+    "bitccl/cli.py",
+    "bitccl/logger.py",
+    "setup.py"
+]

@@ -2,6 +2,10 @@
 
 ## Latest changes
 
+## 0.1.1
+
+Python 3.10 support
+
 ## 0.1.0
 
 Better, safer compiler by using RestrictedPython
