@@ -64,10 +64,17 @@ def time_limit(seconds):
         signal.alarm(0)
 
 
+def get_event_loop():  # TODO: remove this when we support asyncio.run everywhere
+    try:
+        return asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.get_event_loop_policy().get_event_loop()
+
+
 def call_universal(func, *args, **kwargs):
     result = func(*args, **kwargs)
     if inspect.isawaitable(result):
-        result = asyncio.get_event_loop().run_until_complete(result)
+        result = get_event_loop().run_until_complete(result)
     return result
 
 
