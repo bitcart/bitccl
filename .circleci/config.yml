@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  bitcartcc: bitcartcc/bitcartcc-shared@1
+
 executors:
   main-executor:
     parameters:
@@ -45,46 +48,6 @@ commands:
           path: test-results
 
 jobs:
-  lint:
-    docker:
-      - image: cimg/python:3.7
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-lint-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "test-requirements.txt" }}
-
-      - restore_cache:
-          keys:
-            - v1-lint-pre-commit-{{ .Branch }}-{{ checksum ".pre-commit-config.yaml" }}
-
-      - run:
-          name: install dependencies
-          command: |
-            virtualenv ~/venv
-            echo ". ~/venv/bin/activate" >> $BASH_ENV
-            source $BASH_ENV
-            pip install -U -r test-requirements.txt
-
-      - save_cache:
-          paths:
-            - ~/venv
-          key: v1-lint-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "test-requirements.txt" }}
-
-      - run:
-          name: run pre-commit checks
-          command: |
-            pre-commit run --all-files --show-diff-on-failure
-
-      - save_cache:
-          paths:
-            - ~/.cache/pre-commit
-          key: v1-lint-pre-commit-{{ .Branch }}-{{ checksum ".pre-commit-config.yaml" }}
-
   test:
     parameters:
       v:
@@ -139,7 +102,8 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - lint
+      - bitcartcc/lint:
+          name: lint
       - test:
           name: test-<< matrix.v >>
           requires:
@@ -150,6 +114,7 @@ workflows:
                 - "3.7"
                 - "3.8"
                 - "3.9"
+                - "3.10"
 
       - deploy:
           context: global

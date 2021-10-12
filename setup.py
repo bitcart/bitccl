@@ -13,6 +13,7 @@ with open("README.md") as readme_file:
 
 with open("requirements.txt") as requirements_file:
     requirements = requirements_file.read()
+
 setup(
     author="MrNaif2018",
     author_email="chuff184@gmail.com",
@@ -25,6 +26,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     description="The BitCCL scripting language compiler package",
     entry_points={"console_scripts": ["bitccl=bitccl.cli:main"]},
