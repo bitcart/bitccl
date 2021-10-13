@@ -2,6 +2,11 @@
 
 ## Latest changes
 
+## 0.2.0
+
+Properly use event loop
+We now support using `asyncio.run` without crashes
+
 ## 0.1.1
 
 Python 3.10 support
