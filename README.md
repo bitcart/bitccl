@@ -99,7 +99,7 @@ it's lowercase symbol, for example:
 print(btc.rate())
 print(ltc.rate())
 print(bch.rate())
-print(gzro.rate())
+print(xrg.rate())
 print(bsty.rate())
 ```
 
