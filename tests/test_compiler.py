@@ -8,6 +8,7 @@ import pytest
 from bitccl import run
 from bitccl.compiler import compile_restricted, events, functions
 from bitccl.exceptions import CompilationRestrictedError
+from bitccl.utils import get_event_loop
 
 CLASS_TEST = """
 class Test:
@@ -69,7 +70,7 @@ async def func2():
     global run
     run = True
 
-asyncio.run(func())
+get_event_loop().run_until_complete(func())
 assert run
 """
 
@@ -140,7 +141,7 @@ def test_call_args_kwargs():
 def test_async_support_works():
     class AsyncioPlugin:
         def startup(self):
-            return {"asyncio": asyncio, "contextlib": contextlib}
+            return {"asyncio": asyncio, "contextlib": contextlib, "get_event_loop": get_event_loop}
 
         def shutdown(self, context):
             pass
