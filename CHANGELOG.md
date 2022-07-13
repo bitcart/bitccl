@@ -2,6 +2,10 @@
 
 ## Latest changes
 
+## 0.3.0
+
+We now support Python 3.8+ only
+
 ## 0.2.0
 
 Properly use event loop

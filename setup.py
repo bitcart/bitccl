@@ -23,7 +23,6 @@ setup(
         "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -41,4 +40,5 @@ setup(
     url="https://github.com/bitcartcc/bitccl",
     version=version_module.VERSION,
     zip_safe=False,
+    python_requires=">=3.8",
 )
