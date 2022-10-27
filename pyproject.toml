@@ -13,7 +13,8 @@ addopts = [
 ]
 filterwarnings = [
     "error::DeprecationWarning",
-    "error::PendingDeprecationWarning"
+    "error::PendingDeprecationWarning",
+    "ignore:.*'cgi' is deprecated.*:DeprecationWarning:httpx", # TODO: remove when a new httpx release is out
 ]
 
 [tool.coverage.run]
