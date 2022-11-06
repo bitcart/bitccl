@@ -2,6 +2,10 @@
 
 ## Latest changes
 
+## 0.3.1
+
+Python 3.11 support
+
 ## 0.3.0
 
 We now support Python 3.8+ only

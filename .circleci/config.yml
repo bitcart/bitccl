@@ -20,7 +20,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v2-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "requirements.txt" }}-{{ checksum "test-requirements.txt" }}
+            - v1-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "requirements.txt" }}-{{ checksum "test-requirements.txt" }}
 
       - run:
           name: install dependencies
@@ -34,7 +34,7 @@ commands:
       - save_cache:
           paths:
             - ~/venv
-          key: v2-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "requirements.txt" }}-{{ checksum "test-requirements.txt" }}
+          key: v1-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "requirements.txt" }}-{{ checksum "test-requirements.txt" }}
 
   upload-results:
     steps:
@@ -114,6 +114,7 @@ workflows:
                 - "3.8"
                 - "3.9"
                 - "3.10"
+                - "3.11"
 
       - deploy:
           context: global
