@@ -4,7 +4,7 @@
 
 ---
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bitcartcc/bitccl/test?style=flat-square)
+[![CircleCI](https://circleci.com/gh/bitcartcc/bitccl.svg?style=svg)](https://circleci.com/gh/bitcartcc/bitccl)
 ![Codecov](https://img.shields.io/codecov/c/github/bitcartcc/bitccl?style=flat-square)
 ![PyPI](https://img.shields.io/pypi/v/bitccl?style=flat-square)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/bitccl?style=flat-square)

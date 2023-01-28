@@ -2,6 +2,10 @@
 
 ## Latest changes
 
+## 0.4.1
+
+Fix PyPI readme
+
 ## 0.4.0
 
 Change license to MIT license
