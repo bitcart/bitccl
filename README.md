@@ -204,4 +204,4 @@ Also see our [contributing guidelines](CONTRIBUTING.md).
 
 Copyright (C) 2020 MrNaif2018
 
-Licensed under the [LGPLv3+](LICENSE)
+Licensed under the [MIT license](LICENSE)

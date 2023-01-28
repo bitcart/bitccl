@@ -2,6 +2,10 @@
 
 ## Latest changes
 
+## 0.4.0
+
+Change license to MIT license
+
 ## 0.3.1
 
 Python 3.11 support
