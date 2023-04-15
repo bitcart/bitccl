@@ -1,5 +1,4 @@
 class BaseEvent:
-
     name: str
     args_len: int = 0
     required_len: int = 0
