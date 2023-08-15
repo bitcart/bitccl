@@ -24,10 +24,10 @@ If applicable, add screenshots to help explain your problem.
 - OS:
 - Version:
 - Python version (if applicable):
-- - [ ] Using as part of BitcartCC deployment
-- If using as part of BitcartCC deployment, please also add:
-  - BitcartCC version:
-  - BitcartCC deployment method used:
+  - - [ ] Using as part of Bitcart deployment
+- If using as part of Bitcart deployment, please also add:
+  - Bitcart version:
+  - Bitcart deployment method used:
 
 **Additional context**
 Add any other context about the problem here.

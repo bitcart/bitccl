@@ -2,6 +2,10 @@
 
 ## Latest changes
 
+## 0.4.2
+
+Rename BitcartCC to Bitcart
+
 ## 0.4.1
 
 Fix PyPI readme
@@ -33,7 +37,7 @@ Better, safer compiler by using RestrictedPython
 
 Now it should not be possible to get access to arbitrary modules via existing python objects available.
 
-For more details see [How does BitCCL secure the users](https://github.com/bitcartcc/bitccl/blob/master/README.md#how-does-bitccl-secure-the-users)
+For more details see [How does BitCCL secure the users](https://github.com/bitcart/bitccl/blob/master/README.md#how-does-bitccl-secure-the-users)
 
 ## 0.0.6
 

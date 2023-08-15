@@ -1,19 +1,19 @@
 <p align="center">
-  <a href="https://bitcartcc.com"><img src="https://raw.githubusercontent.com/bitcartcc/bitccl/master/logo.png" alt="BitCCL"></a>
+  <a href="https://bitcart.ai"><img src="https://raw.githubusercontent.com/bitcart/bitccl/master/logo.png" alt="BitCCL"></a>
 </p>
 
 ---
 
-[![CircleCI](https://circleci.com/gh/bitcartcc/bitccl.svg?style=svg)](https://circleci.com/gh/bitcartcc/bitccl)
-![Codecov](https://img.shields.io/codecov/c/github/bitcartcc/bitccl?style=flat-square)
+[![CircleCI](https://circleci.com/gh/bitcart/bitccl.svg?style=svg)](https://circleci.com/gh/bitcart/bitccl)
+![Codecov](https://img.shields.io/codecov/c/github/bitcart/bitccl?style=flat-square)
 ![PyPI](https://img.shields.io/pypi/v/bitccl?style=flat-square)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/bitccl?style=flat-square)
 
 ---
 
-BitCCL is a [BitcartCC](https://bitcartcc.com) scripting language used for automating checkout flow and more.
+BitCCL is a [Bitcart](https://bitcart.ai) scripting language used for automating checkout flow and more.
 
-It is currently in alpha stage, being separated from the [main BitcartCC repository](https://github.com/bitcartcc/bitcart).
+It is currently in alpha stage, being separated from the [main Bitcart repository](https://github.com/bitcart/bitcart).
 
 ## Architechture
 
@@ -21,7 +21,7 @@ BitCCL is basically Python, but:
 
 - Safe, with disabled import system
 - Robust, with many built-in functions
-- Optimized for running in BitcartCC environment
+- Optimized for running in Bitcart environment
 
 Language file extension is `.bccl`.
 
@@ -90,7 +90,7 @@ if res.status_code == http_codes.OK:
 
 For additional information about built-in http client, you can read it's full [documentation](https://www.python-httpx.org/quickstart)
 
-Also, [BitcartCC SDK](https://sdk.bitcartcc.com) is available to use.
+Also, [Bitcart SDK](https://sdk.bitcart.ai) is available to use.
 
 To access coins without xpub to get transaction, fiat rate or anything else not requiring a wallet, you can access each coin by
 it's lowercase symbol, for example:
@@ -103,7 +103,7 @@ print(xrg.rate())
 print(bsty.rate())
 ```
 
-**Note**: running coins' commands require it's daemon running if you are not using BitCCL from BitcartCC deployment.
+**Note**: running coins' commands require it's daemon running if you are not using BitCCL from Bitcart deployment.
 
 To perform operations requiring a wallet, use upper-case coin symbol, passing xpub/ypub/zpub/xprv/yprv/zprv/electrum seed in it:
 
@@ -196,7 +196,7 @@ Afterwards, we execute the bytecode with a pretty limited `globals` object, with
 ## Contributing
 
 You can contribute to BitCCL language by suggesting new built-in functions and events to be added, as well as any ideas for improving it.
-Open an [issue](https://github.com/bitcartcc/bitccl/issues/new/choose) to suggest new features
+Open an [issue](https://github.com/bitcart/bitccl/issues/new/choose) to suggest new features
 
 Also see our [contributing guidelines](CONTRIBUTING.md).
 
