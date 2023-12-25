@@ -1,4 +1,4 @@
 bitcart
-httpx[http2]==0.25.* # TODO: remove pin when 1.0 is out
+httpx[http2]==0.26.* # TODO: remove pin when 1.0 is out
 Jinja2
 RestrictedPython
