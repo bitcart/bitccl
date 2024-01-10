@@ -4,6 +4,7 @@
 .coverage
 .idea
 .mypy_cache
+.prettiercache
 .pytest_cache
 .vscode
 __pycache__

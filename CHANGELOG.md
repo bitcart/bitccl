@@ -2,6 +2,10 @@
 
 ## Latest changes
 
+## 0.4.3
+
+Don't install a separate tests package, but include tests in source tarball
+
 ## 0.4.2
 
 Rename BitcartCC to Bitcart

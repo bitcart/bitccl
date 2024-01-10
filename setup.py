@@ -37,7 +37,7 @@ setup(
     include_package_data=True,
     keywords=["bitcart", "bitccl", "programminglanguage", "compiler"],
     name="bitccl",
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/bitcart/bitccl",
     version=version_module.VERSION,
     zip_safe=False,
